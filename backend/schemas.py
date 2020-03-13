@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 class ArticleBase(BaseModel):
     title: str
-    description: str = None
+    content: str = None
 
 
 class ArticleCreate(ArticleBase):
