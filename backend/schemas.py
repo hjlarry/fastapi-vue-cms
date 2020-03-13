@@ -1,37 +1,67 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel
 
 
-class ItemBase(BaseModel):
+class ArticleBase(BaseModel):
     title: str
     description: str = None
 
 
-class ItemCreate(ItemBase):
+class ArticleCreate(ArticleBase):
+    title: str
+
+
+class ArticleUpdate(ArticleBase):
     pass
 
 
-class Item(ItemBase):
+class ArticleInDBBase(ArticleBase):
     id: int
+    title: str
     owner_id: int
 
     class Config:
         orm_mode = True
 
 
+class Article(ArticleInDBBase):
+    pass
+
+
+class ArticleInDB(ArticleInDBBase):
+    pass
+
+
 class UserBase(BaseModel):
-    email: str
+    email: Optional[str] = None
+    is_active: Optional[bool] = True
+    is_superuser: Optional[bool] = False
 
 
-class UserCreate(UserBase):
-    password: str
-
-
-class User(UserBase):
-    id: int
-    is_active: bool
-    items: List[Item] = []
+class UserBaseInDB(UserBase):
+    id: int = None
 
     class Config:
         orm_mode = True
+
+
+# Properties to receive via API on creation
+class UserCreate(UserBaseInDB):
+    email: str
+    password: str
+
+
+# Properties to receive via API on update
+class UserUpdate(UserBaseInDB):
+    password: Optional[str] = None
+
+
+# Additional properties to return via API
+class User(UserBaseInDB):
+    pass
+
+
+# Additional properties stored in DB
+class UserInDB(UserBaseInDB):
+    hashed_password: str
