@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from backend import schemas
+from backend import schemas, crud
 from backend.utils import get_db
 
 router = APIRouter()

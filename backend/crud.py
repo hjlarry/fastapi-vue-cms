@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from .models import User, Article
 from .database import Base
 from .schemas import UserCreate, UserUpdate, ArticleCreate, ArticleUpdate
-from .utils import get_password_hash
+from .utils import get_password_hash, verify_password
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
