@@ -8,6 +8,7 @@ from backend.utils import get_db
 
 router = APIRouter()
 
+
 @router.post("/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = crud.user.get_by_email(db, email=user.email)

@@ -10,9 +10,7 @@ router = APIRouter()
 
 
 @router.post("/users/{user_id}/articles/", response_model=schemas.Article)
-def create(
-    user_id: int, article: schemas.ArticleCreate, db: Session = Depends(get_db)
-):
+def create(user_id: int, article: schemas.ArticleCreate, db: Session = Depends(get_db)):
     return crud.article.create_with_owner(db, obj_in=article, owner_id=user_id)
 
 
