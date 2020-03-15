@@ -2,12 +2,14 @@ from datetime import datetime, timedelta
 
 import jwt
 from starlette.requests import Request
+from starlette.status import HTTP_403_FORBIDDEN
 from passlib.context import CryptContext
 from fastapi import Depends, Security, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
 from backend import crud, config
+from backend.schemas import TokenPayload
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/api/v1/login/access-token")
