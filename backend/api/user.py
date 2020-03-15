@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Any
+
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from backend import schemas, crud
-from backend.utils import get_db
+from backend.utils import get_db, MyResponse
 
 router = APIRouter()
 
@@ -17,7 +18,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.user.create(db, obj_in=user)
 
 
-@router.get("/", response_model=List[schemas.User])
+@router.get("/", response_model=List[schemas.User], response_class=MyResponse)
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = crud.user.get_multi(db, skip=skip, limit=limit)
     return users
