@@ -74,3 +74,7 @@ class Token(BaseModel):
 
 class TokenPayload(BaseModel):
     user_id: int = None
+
+class Login(BaseModel):
+    username: str
+    password: str
