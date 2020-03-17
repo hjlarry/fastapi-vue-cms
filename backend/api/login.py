@@ -35,7 +35,7 @@ def login_access_token(
 
 
 @router.post("/user/info", tags=["login"], response_model=schemas.User)
-def test_token(current_user: DBUser = Depends(get_current_user)):
+def get_info(current_user: DBUser = Depends(get_current_user)):
     """
     Test access token
     """

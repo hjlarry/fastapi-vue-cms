@@ -14,7 +14,7 @@ def create(user_id: int, article: schemas.ArticleCreate, db: Session = Depends(g
     return crud.article.create_with_owner(db, obj_in=article, owner_id=user_id)
 
 
-@router.get("/articles/", response_model=List[schemas.Article])
+@router.get("", response_model=List[schemas.Article])
 def read_articles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.article.get_multi(db, skip=skip, limit=limit)
     return items
